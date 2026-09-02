@@ -1,0 +1,108 @@
+# PUIE: unified three-task image enhancement (dataset paths are local placeholders)
+name: PUIE_Mixed
+model_type: ImageCleanModel
+scale: 1
+num_gpu: 1
+manual_seed: 100
+
+datasets:
+  train:
+    name: MixedTrain
+    type: Dataset_PairedImage
+    dataroot_gt: data/Mixed/train/gt
+    dataroot_lq: data/Mixed/train/input
+    geometric_augs: true
+    filename_tmpl: '{}'
+    io_backend: {type: disk}
+    use_shuffle: true
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 8
+    mini_batch_sizes: [8]
+    iters: [150000]
+    gt_size: 128
+    gt_sizes: [128]
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+  val:
+    name: MixedTest
+    type: Dataset_PairedImage
+    dataroot_gt: data/Mixed/test/gt
+    dataroot_lq: data/Mixed/test/input
+    io_backend: {type: disk}
+
+network_g:
+  type: PUIE
+  in_channels: 3
+  out_channels: 3
+  n_feat: 40
+  stage: 1
+  num_blocks: [1, 2, 2]
+  tok_dim: 128
+  deg_ch: 48
+  share_deg: true
+  use_bms: true
+  use_sfde_spatial: true
+  use_sfde_token: true
+  use_moe: true
+  use_freq: true
+  router_tau: 0.7
+  use_illu_attn: true
+  use_dncnn_shallow: true
+  use_dncnn_bottleneck: true
+  dncnn_depth: 6
+  dncnn_alpha_max: 0.6
+  use_block_denoiser: false
+
+path:
+  pretrain_network_g: ~
+  strict_load_g: false
+  resume_state: ~
+
+train:
+  total_iter: 150000
+  warmup_iter: -1
+  use_grad_clip: true
+  use_amp: true
+  scheduler:
+    type: CosineAnnealingRestartCyclicLR
+    periods: [46000, 104000]
+    restart_weights: [1, 1]
+    eta_mins: [0.0003, 0.000001]
+  mixing_augs:
+    mixup: false
+    mixup_beta: 1.2
+    use_identity: true
+  optim_g:
+    type: Adam
+    lr: 0.0002
+    betas: [0.9, 0.999]
+  # The released experiment optimized only the Charbonnier reconstruction loss.
+  pixel_opt:
+    type: CharbonnierLoss
+    loss_weight: 1.0
+    reduction: mean
+
+val:
+  window_size: 4
+  val_freq: 1000
+  save_img: false
+  rgb2bgr: true
+  use_image: false
+  max_minibatch: 8
+  metrics:
+    psnr:
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+
+logger:
+  print_freq: 500
+  save_checkpoint_freq: 1000
+  use_tb_logger: true
+  wandb:
+    project: PUIE
+    resume_id: ~
+
+dist_params:
+  backend: nccl
+  port: 29500

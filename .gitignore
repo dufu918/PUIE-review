@@ -1,0 +1,16 @@
+data/
+datasets/
+experiments/
+results/
+tb_logger/
+wandb/
+pretrained_weights/
+checkpoints/
+*.pth
+*.pt
+*.state
+*.log
+__pycache__/
+*.py[cod]
+.idea/
+.venv/
