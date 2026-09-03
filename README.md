@@ -27,7 +27,7 @@ reconstruction loss with ε=10⁻³.
 
 ## Contents
 
-- `configs/` — main and ablation experiment configurations;
+- `configs/` — main experiment configuration;
 - `splits/` — dataset-free filename lists for the mixed benchmark;
 - `docs/` — additional experiment and split information.
 
