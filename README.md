@@ -13,14 +13,13 @@ release.
 
 ## Experimental setup
 
-The mixed benchmark used in the reported experiments contains 2,001 training
-pairs and 257 test pairs:
+The mixed benchmark release contains 2,000 training pairs and 257 test pairs:
 
 | Subset | Train | Test |
 |---|---:|---:|
 | LOL-v2 Synthetic | 900 | 100 |
 | UIEB | 800 | 90 |
-| BAID subset | 301 | 67 |
+| BAID subset | 300 | 67 |
 
 Training used 128×128 random crops, a batch size of 8, Adam with a learning
 rate of 2×10⁻⁴, and 150,000 iterations. The recorded run used the Charbonnier

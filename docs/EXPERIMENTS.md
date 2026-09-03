@@ -1,13 +1,13 @@
 # Experiment and split metadata
 
-The fixed mixed split used by the recorded run is:
+The fixed mixed split provided with this release is:
 
 | source | train | test |
 |---|---:|---:|
 | LOL-v2 Synthetic | 900 | 100 |
 | UIEB paired subset | 800 | 90 |
-| BAID subset | 301 | 67 |
-| **Total** | **2,001** | **257** |
+| BAID subset | 300 | 67 |
+| **Total** | **2,000** | **257** |
 
 The split files contain filenames only; no images are redistributed. The
 source datasets do not provide a common scene identifier, so the manifests
