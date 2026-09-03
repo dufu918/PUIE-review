@@ -1,33 +1,37 @@
-# PUIE: Physically Inspired Unified Enhancement
+# PUIE
 
-This is the anonymous review snapshot for the three-task image-enhancement
-experiments (low-light, backlit and underwater). It contains the experiment
-metadata, configurations and dataset-free filename manifests. The core network
-implementation is intentionally withheld during review while the code is
-being cleaned and organized. The complete implementation will be added after
-the review/organization phase.
+This repository accompanies the paper **“PUIE: A Physically Inspired Unified
+Framework for Image Enhancement Under Complex Illumination.”** PUIE is a
+unified model for low-light, backlit and underwater image enhancement.
 
-## Experiment record
+## Repository status
 
-The recorded mixed benchmark contains 2,001 training pairs and 257 test pairs:
+The current release contains the experiment configurations and the filename
+lists used to construct the mixed benchmark. The model implementation and
+pretrained weights are being organized and will be included in a subsequent
+release.
 
-| subset | train | test |
+## Experimental setup
+
+The mixed benchmark used in the reported experiments contains 2,001 training
+pairs and 257 test pairs:
+
+| Subset | Train | Test |
 |---|---:|---:|
 | LOL-v2 Synthetic | 900 | 100 |
 | UIEB | 800 | 90 |
 | BAID subset | 301 | 67 |
 
-Training used 128×128 random crops, batch size 8, Adam with learning rate
-2e-4, and 150,000 iterations. The released run optimized the Charbonnier
-reconstruction loss with ε=1e-3.
+Training used 128×128 random crops, a batch size of 8, Adam with a learning
+rate of 2×10⁻⁴, and 150,000 iterations. The recorded run used the Charbonnier
+reconstruction loss with ε=10⁻³.
 
-## Repository status statement
+## Contents
 
-> The implementation is currently being cleaned and anonymized for release.
-> The present repository provides the experiment protocol and split metadata;
-> the core model source and trained weights will be added after the review
-> period.
+- `configs/` — main and ablation experiment configurations;
+- `splits/` — dataset-free filename lists for the mixed benchmark;
+- `docs/` — additional experiment and split information.
 
-No image data, checkpoints, logs, TensorBoard files or user-specific paths are
-included in this snapshot. Dataset licenses and download instructions are
-listed in `docs/EXPERIMENTS.md`.
+The datasets, checkpoints and experiment outputs are not distributed with
+this repository. Please obtain the datasets from their original sources and
+follow the corresponding licenses.
